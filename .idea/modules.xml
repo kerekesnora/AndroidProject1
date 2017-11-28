@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SapiAdvertiser.iml" filepath="$PROJECT_DIR$/SapiAdvertiser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/AndroidProject.iml" filepath="$PROJECT_DIR$/.idea/AndroidProject.iml" />
+      <module fileurl="file://C:\Users\Elod\AndroidStudioProjects\AndroidProject\SapiAdvertiser.iml" filepath="C:\Users\Elod\AndroidStudioProjects\AndroidProject\SapiAdvertiser.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

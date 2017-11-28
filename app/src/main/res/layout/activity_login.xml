@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sapiadvertiser.sapiadvertiser.Login"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+         />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/singin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SingIn" />
+
+    <Button
+        android:id="@+id/singup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SingUp" />
+</LinearLayout>

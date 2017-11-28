@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sapiadvertiser.sapiadvertiser.MainActivity"
     android:orientation="vertical">
 
-
-    <Button
-        android:id="@+id/login"
+    <TextView
+        android:id="@+id/maintext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log In" />
+        android:textSize="30dp"
+        android:text="TextView" />
 
-    <Button
-        android:id="@+id/notlogin"
+    <RelativeLayout
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Not Log In" />
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
 
 
 </LinearLayout>
+
