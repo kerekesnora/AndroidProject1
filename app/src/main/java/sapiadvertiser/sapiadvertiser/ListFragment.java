@@ -70,8 +70,7 @@ public class ListFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 feedsList.clear();
-               // Map<String, Object> objectMap = (HashMap<String, Object>)
-                 //       snapshot.getValue();
+
                 ArrayList<ModelList> objectMap = (ArrayList<ModelList>) snapshot.getValue();
                 if(objectMap!=null){
                 for (Object obj : objectMap) {
@@ -84,6 +83,8 @@ public class ListFragment extends Fragment {
                     match.setMessage((String) mapObj.get("message"));
                     match.setPhone((String) mapObj.get("phone"));
                     match.setClock((String) mapObj.get("clock"));
+                    match.setLongLoc((Double) mapObj.get("longLoc"));
+                    match.setLatitudLoc((Double) mapObj.get("latitudLoc"));
                     feedsList.add(match);
                     Log.d("teszt",objectMap.size()+"" );
                     adapter.setStringSearch("");

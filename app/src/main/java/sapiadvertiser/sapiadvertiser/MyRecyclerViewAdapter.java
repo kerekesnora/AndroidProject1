@@ -55,7 +55,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         customViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,OneAdvertisement.class);
+                Intent intent = new Intent(mContext,MapsActivity.class);
                 intent.putExtra("advert",feedItem);
                 mContext.startActivity(intent);
             }

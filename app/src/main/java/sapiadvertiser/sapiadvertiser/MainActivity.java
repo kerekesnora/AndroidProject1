@@ -23,9 +23,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent= new Intent(getApplication(),ListActivity.class);
                 intent.putExtra("flag",1);
-                getClass().getCanonicalName();
                 startActivity(intent);
-
             }
         });
         notlogin.setOnClickListener(new View.OnClickListener() {

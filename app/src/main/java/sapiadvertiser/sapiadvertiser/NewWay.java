@@ -7,7 +7,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +20,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,9 +34,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.Executor;
 
 
-public class NewWay extends Fragment {
+public class NewWay extends Fragment
+        implements GoogleMap.OnMyLocationButtonClickListener,
+        GoogleMap.OnMyLocationClickListener,
+        OnMapReadyCallback {
     private EditText start;
     private EditText stop;
     private EditText message;
@@ -41,10 +55,14 @@ public class NewWay extends Fragment {
     private BroadcastReceiver broadcastReceiver;
     private ModelList elem;
 
+    private FusedLocationProviderClient mFusedLocationClient;
+    private GoogleMap mMap;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        elem = new ModelList();
+        location();
     }
 
     @Override
@@ -64,7 +82,7 @@ public class NewWay extends Fragment {
         phone = (EditText) rootView.findViewById(R.id.phone);
         submit = (Button) rootView.findViewById(R.id.submit);
 
-        elem = new ModelList();
+
 
         datum.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +107,7 @@ public class NewWay extends Fragment {
                         datum.getText().equals("") || clock.getText().toString().equals("")) {
                     //not string
                 }else {
+
                     elem.setStart(start.getText().toString());
                     elem.setFinish(stop.getText().toString());
                     elem.setMessage(message.getText().toString());
@@ -166,8 +185,10 @@ public class NewWay extends Fragment {
                         match.setMessage((String) mapObj.get("message"));
                         match.setPhone((String) mapObj.get("phone"));
                         match.setClock((String) mapObj.get("clock"));
+                        match.setLongLoc((Double) mapObj.get("longLoc"));
+                        match.setLatitudLoc((Double) mapObj.get("latitudLoc"));
                         list.add(match);
-                        Log.d("teszt", "2");
+
                     }
 
 
@@ -182,6 +203,50 @@ public class NewWay extends Fragment {
 
         });
     }
+    public void location (){
 
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener( getActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            Log.d("LAT", location.getLatitude()+":LAT");
+                            Log.d("LAT", location.getLongitude()+":LONG");
+                            elem.setLatitudLoc(location.getLatitude());
+                            elem.setLongLoc(location.getLongitude());
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        return false;
+    }
+
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
+        if ((ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) && (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+        mMap.getMaxZoomLevel();
+        mMap.setOnMyLocationClickListener(this);
+
+    }
 }
 

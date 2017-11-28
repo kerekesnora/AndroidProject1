@@ -1,17 +1,17 @@
 package sapiadvertiser.sapiadvertiser;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Bundle;
+import android.Manifest;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class OneAdvertisement extends AppCompatActivity {
+public class OneAdvertisement extends AppCompatActivity  {
     private TextView start;
     private TextView date;
     private TextView message;
@@ -19,6 +19,8 @@ public class OneAdvertisement extends AppCompatActivity {
     private TextView clock;
     private TextView phone;
     private Button call;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,7 @@ public class OneAdvertisement extends AppCompatActivity {
         this.phone = (TextView) findViewById(R.id.phone);
         call= (Button) findViewById(R.id.call) ;
         Intent intent = new Intent();
+
         intent=getIntent();
         ModelList feedItem = new ModelList();
         feedItem= (ModelList) intent.getSerializableExtra("advert");

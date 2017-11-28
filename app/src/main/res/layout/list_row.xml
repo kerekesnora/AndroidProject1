@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f1f1f1"
+    android:padding="12dp"
     android:orientation="vertical"
-    android:padding="12dp">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="TextView" />
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <TextView
             android:layout_width="40dp"
             android:layout_height="wrap_content"
@@ -32,7 +28,6 @@
             android:ems="10"
             android:inputType="text" />
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -56,11 +51,9 @@
 
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <TextView
             android:layout_width="40dp"
             android:layout_height="wrap_content"
@@ -73,15 +66,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10" />
+            android:ems="10"
+             />
 
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <TextView
             android:layout_width="40dp"
             android:layout_height="wrap_content"
@@ -96,13 +88,6 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="datetime" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <TextView
             android:layout_width="45dp"
             android:layout_height="wrap_content"
@@ -120,7 +105,6 @@
 
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -139,19 +123,5 @@
             android:ems="10"
             android:inputType="phone" />
     </LinearLayout>
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        tools:context="sapiadvertiser.sapiadvertiser.MapsActivity" />
-
-    <Button
-        android:id="@+id/call"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
 
 </LinearLayout>
