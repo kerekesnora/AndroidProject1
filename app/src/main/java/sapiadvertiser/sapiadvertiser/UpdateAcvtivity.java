@@ -1,43 +1,24 @@
 package sapiadvertiser.sapiadvertiser;
 
-
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.location.Location;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.concurrent.Executor;
 
-
-public class NewWay extends Fragment {
+public class UpdateAcvtivity extends AppCompatActivity {
     private EditText start;
     private EditText stop;
     private EditText message;
@@ -52,33 +33,31 @@ public class NewWay extends Fragment {
     private BroadcastReceiver broadcastReceiver;
     private ModelList elem;
 
-    private FusedLocationProviderClient mFusedLocationClient;
-    private GoogleMap mMap;
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        elem = new ModelList();
-
-    }
-
-    @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment\
-        new GetAllRows(list).get();
-
+        setContentView(R.layout.activity_update_acvtivity);
+        Intent intent = getIntent();
+        elem = (ModelList) intent.getSerializableExtra("elem");
         ref = FirebaseDatabase.getInstance().getReference();
         modelRef = ref.child("newroad");
 
-        View rootView = inflater.inflate(R.layout.fragment_new_way, container, false);
-        start = (EditText) rootView.findViewById(R.id.start);
-        stop = (EditText) rootView.findViewById(R.id.finish);
-        message = (EditText) rootView.findViewById(R.id.message);
-        datum = (TextView) rootView.findViewById(R.id.date);
-        clock = (TextView) rootView.findViewById(R.id.clock);
-        phone = (EditText) rootView.findViewById(R.id.phone);
-        submit = (Button) rootView.findViewById(R.id.submit);
+
+        start = (EditText) findViewById(R.id.start);
+        stop = (EditText) findViewById(R.id.finish);
+        message = (EditText) findViewById(R.id.message);
+        datum = (TextView) findViewById(R.id.date);
+        clock = (TextView) findViewById(R.id.clock);
+        phone = (EditText) findViewById(R.id.phone);
+        submit = (Button) findViewById(R.id.submit);
+
+
+        start.setText(elem.getStart());
+        stop.setText(elem.getFinish());
+        message.setText(elem.getMessage());
+        datum.setText(elem.getDate());
+        clock.setText(elem.getClock());
+        phone.setText(elem.getPhone());
 
 
 
@@ -86,7 +65,7 @@ public class NewWay extends Fragment {
             @Override
             public void onClick(View view) {
                 newFragment = new DatePickerFragment();
-                newFragment.show(((ListActivity) getActivity()).getFragmentManager(), "Tag");
+                newFragment.show(getFragmentManager(), "Tag");
 
             }
         });
@@ -94,7 +73,7 @@ public class NewWay extends Fragment {
             @Override
             public void onClick(View view) {
                 TimePickerFragment clockfragment = new TimePickerFragment();
-                clockfragment.show(((ListActivity) getActivity()).getFragmentManager(), "Tag");
+                clockfragment.show(getFragmentManager(), "Tag");
 
             }
         });
@@ -115,16 +94,11 @@ public class NewWay extends Fragment {
                     elem.setDate(datum.getText().toString());
                     elem.setFlag((long) 1);
 
-                    list.add(elem);
-
-                    modelRef.setValue(list);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("flag", 1 );
-                    Fragment newFragment = new ListFragment();
-                    newFragment.setArguments(bundle);
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.list, newFragment);
-                    transaction.commit();
+                    new GetAllRows().update(elem.getId(),elem);
+                    Intent intent = new Intent(getApplication(),ListActivity.class);
+                    intent.putExtra("flag",1);
+                    startActivity(intent);
+                    finish();
                 }
 
             }
@@ -150,16 +124,8 @@ public class NewWay extends Fragment {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("date");
         intentFilter.addAction("clock");
-        getActivity().registerReceiver(broadcastReceiver, intentFilter);
+        getApplication().registerReceiver(broadcastReceiver, intentFilter);
 
 
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        getActivity().unregisterReceiver(broadcastReceiver);
     }
 }
-
