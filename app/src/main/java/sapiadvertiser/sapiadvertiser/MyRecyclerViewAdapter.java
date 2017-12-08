@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+
+
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.CustomViewHolder> {
     private ArrayList<ModelList> feedItemList;
     private ArrayList<ModelList> listSearch;
@@ -22,7 +24,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         this.feedItemList = feedItemList;
         this.mContext = context;
         for(ModelList e : feedItemList){
-            listSearch.add(e);
+            if(e.getFlag()==1) {
+                listSearch.add(e);
+            }
         }
     }
 
@@ -36,30 +40,32 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     @Override
-    public void onBindViewHolder(CustomViewHolder customViewHolder, int i) {
+    public void onBindViewHolder(CustomViewHolder customViewHolder, final int i) {
         final ModelList feedItem = listSearch.get(i);
-        Log.d("teszt2","Satum: "+feedItem.getDate());
 
-        customViewHolder.start.setText(feedItem.getStart());
-        customViewHolder.date.setText(feedItem.getDate());
-        customViewHolder.message.setText(feedItem.getMessage());
-        customViewHolder.finish.setText(feedItem.getFinish());
-        customViewHolder.clock.setText(feedItem.getClock());
-        customViewHolder.phone.setText(feedItem.getPhone());
-        int color = Color.argb(255, 255, 175, 64);
-        if(i%2==0){
-            customViewHolder.itemView.setBackgroundColor(color);
 
-        }
+            customViewHolder.start.setText(feedItem.getStart());
+            customViewHolder.date.setText(feedItem.getDate());
+            customViewHolder.message.setText(feedItem.getMessage());
+            customViewHolder.finish.setText(feedItem.getFinish());
+            customViewHolder.clock.setText(feedItem.getClock());
+            customViewHolder.phone.setText(feedItem.getPhone());
+            int color = Color.argb(255, 255, 175, 64);
+            if (i % 2 == 0) {
+                customViewHolder.itemView.setBackgroundColor(color);
 
-        customViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext,MapsActivity.class);
-                intent.putExtra("advert",feedItem);
-                mContext.startActivity(intent);
             }
-        });
+
+            customViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, MapsActivity.class);
+                    intent.putExtra("advert", feedItem);
+                    intent.putExtra("index", i);
+                    mContext.startActivity(intent);
+                }
+            });
+
 
 
 
@@ -69,12 +75,14 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         listSearch.clear();
         if(search.equals("")){
             for (ModelList e : feedItemList) {
-                listSearch.add(e);
+                if(e.getFlag()==1) {
+                    listSearch.add(e);
+                }
             }
 
         }else {
             for (ModelList e : feedItemList) {
-                if (e.getStart().startsWith(search)) {
+                if (e.getStart().startsWith(search) && e.getFlag()==1) {
                     Log.d("addap",e.getStart());
                     listSearch.add(e);
                 }

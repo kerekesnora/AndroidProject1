@@ -13,8 +13,8 @@ public class ModelList implements Serializable{
     private String date;
     private String clock;
     private String phone;
-    private Double latitudLoc;
-    private Double longLoc;
+    private Long flag;
+    private String id;
 
     public ModelList() {
     }
@@ -26,13 +26,21 @@ public class ModelList implements Serializable{
         this.date = datum;
     }
 
-    public Double getLatitudLoc() { return latitudLoc;}
+    public String getId() {
+        return id;
+    }
 
-    public void setLatitudLoc(Double latitudLoc) {this.latitudLoc = latitudLoc;}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public Double getLongLoc() {return longLoc;}
+    public Long getFlag() {
+        return flag;
+    }
 
-    public void setLongLoc(Double longLoc) {this.longLoc = longLoc;}
+    public void setFlag(Long flag) {
+        this.flag = flag;
+    }
 
     public String getClock() {
         return clock;

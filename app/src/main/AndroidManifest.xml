@@ -38,7 +38,6 @@
         </activity>
         <activity android:name=".ListActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".OneAdvertisement" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
@@ -54,6 +53,8 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".ForgotPasswordActivity"></activity>
+
+        <activity android:name=".UpdateAcvtivity"></activity>
     </application>
 
 </manifest>
